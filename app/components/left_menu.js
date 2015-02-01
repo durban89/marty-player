@@ -20,7 +20,9 @@ var VideoItem = React.createClass({
     // Wrong, use of action "setVideo" needed
     // onClick={this.props.menu.handleMenuClick.bind(null, this.props.videoName)}
     return <li>
-      <a href="#">{this.props.videoName}</a>
+      <a href="#" onClick={this.props.onMenuClick.bind(null, this.props.index)}>
+        {this.props.videoName}
+      </a>
     </li>;
   }
 });
@@ -28,13 +30,13 @@ var VideoItem = React.createClass({
 var LeftMenu = React.createClass({
   mixins: [LeftMenuState],
 
-  // Wrong, use of action "setVideo" needed
-  //handleMenuClick: function(videoName) {
-  //  // Create video change action
-  //  console.log("Clicked on : " + videoName);
-  //},
+  handleMenuClick: function(videoName) {
+    // Create video change action
+    console.log("Clicked on : " + videoName);
+  },
 
   render: function() {
+    var callback = this.handleMenuClick;
     var contentTag = this.state.videoList.when({
       pending: function() {
         return <div>
@@ -44,13 +46,19 @@ var LeftMenu = React.createClass({
 
       failed: function(error) {
         return <div>
-          <span>List failed to load.</span>
+          <span>List failed to load: {error.message}</span>
         </div>;
       },
 
       done: function(videoList) {
+        var index = 0;
         var videoNodeList = videoList.map(function(videoName) {
-          return <VideoItem key={videoName} videoName={videoName} />;
+          var tag = <VideoItem key={index}
+            index={index}
+            onMenuClick={callback}
+            videoName={videoName} />;
+          index++;
+          return tag;
         });
 
         return <div>

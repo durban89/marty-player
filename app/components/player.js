@@ -38,7 +38,7 @@ var Player = React.createClass({
 
       failed: function(error) {
         return <div>
-          <span>Video failed to load.</span>
+          <span>Video failed to load: {error.message}</span>
         </div>
       },
 
