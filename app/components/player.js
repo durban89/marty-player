@@ -20,37 +20,37 @@ var Player = React.createClass({
   mixins: [PlayerState],
 
   componentDidUpdate: function() {
-    // Wrong, this code should be executed by an action
-    //var videoTag = this.refs.videotag.getDOMNode();
-    //if (this.props.videoFilename !== null) {
+    // If video tag is rendered, then we load the new video
+    //var videoTag = this.refs.video_tag.getDOMNode();
+    //if (videoTag) {
     //  videoTag.load();
-    //  videoTag.play();
     //}
   },
 
   render: function() {
-    return this.state.videoList.when({
+    var playerState = this.state;
+    return playerState.videoList.when({
       pending: function() {
         return <div>
           <span>Video is loading.</span>
         </div>
       },
 
-      failed: function() {
+      failed: function(error) {
         return <div>
           <span>Video failed to load.</span>
         </div>
       },
 
       done: function(videoList) {
-        var videoFilename = videoList[this.state.videoIndex];
+        var videoFilename = videoList[playerState.videoIndex];
         return <div>
             <div>
-              <video ref="videotag" className="video-player-layout"
+              <video ref="video_tag" className="video-player-layout"
                 width="800" height="600"
-                controls autoPlay>
-                <span>Your browser does not support the video tag.</span>
+                controls>
                 <source src={videoFilename} type="video/mp4"></source>
+                <span>Your browser does not support the video tag.</span>
               </video>
             </div>
 

@@ -42,7 +42,7 @@ var LeftMenu = React.createClass({
         </div>;
       },
 
-      failed: function() {
+      failed: function(error) {
         return <div>
           <span>List failed to load.</span>
         </div>;
