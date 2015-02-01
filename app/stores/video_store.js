@@ -34,18 +34,15 @@ var VideoStore = Marty.createStore({
         return this.state.videoList;
       },
       remotely: function() {
-        // Don't know if this function "remotely" is supposed
-        // to return something or not
-        return VideoHttpApi.getVideoList();
+        // If remotely returns a fullfilled promise,
+        // then locally is called
+        return VideoHttpApi.retrieveVideoList();
       }
     });
   },
 
-  getCurrentVideoFilename: function() {
-    // Can we do this "then" to transform results ?
-    return this.getVideoList().then(function(videoList) {
-      return videoList[this.state.currentVideoIndex];
-    });
+  getCurrentVideoIndex: function() {
+    return this.state.currentVideoIndex;
   }
 });
 

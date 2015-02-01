@@ -10,7 +10,8 @@ var PlayerState = Marty.createStateMixin({
   listenTo: [VideoStore],
   getState: function () {
     return {
-      videoFilename: VideoStore.getCurrentVideoFilename()
+      videoList: VideoStore.getVideoList(),
+      videoIndex: VideoStore.getCurrentVideoIndex()
     };
   }
 });
@@ -28,7 +29,7 @@ var Player = React.createClass({
   },
 
   render: function() {
-    return this.state.videoFilename.when({
+    return this.state.videoList.when({
       pending: function() {
         return <div>
           <span>Video is loading.</span>
@@ -41,14 +42,15 @@ var Player = React.createClass({
         </div>
       },
 
-      done: function(videoFilename) {
+      done: function(videoList) {
+        var videoFilename = videoList[this.state.videoIndex];
         return <div>
             <div>
               <video ref="videotag" className="video-player-layout"
                 width="800" height="600"
                 controls autoPlay>
                 <span>Your browser does not support the video tag.</span>
-                <source src={this.state.videoFilename} type="video/mp4"></source>
+                <source src={videoFilename} type="video/mp4"></source>
               </video>
             </div>
 

@@ -8,10 +8,11 @@ var VideoActionCreators = require('actions/video_action_creators');
 var VideoHttpApi = Marty.createStateSource({
   type: 'http',
 
-  getVideoList: function() {
+  retrieveVideoList: function() {
+    // Return get promise
     return this.get('/films').then(function(response) {
+      // Modify state when promise is fullfilled
       VideoActionCreators.setVideoList(response.body);
-      return response;
     });
   }
 });
