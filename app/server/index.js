@@ -15,6 +15,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
 
+app.use('/styles', express.static(path.join(__dirname, '..', 'styles')));
 
 app.get('/', require('./routes/index'));
 app.get('/films', require('./routes/films'));
