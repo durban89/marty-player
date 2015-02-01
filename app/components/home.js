@@ -10,9 +10,13 @@ var Home = React.createClass({
     return (
       <div className="container">
         <Header />
-        <div className="row small-top-margin">
-          <LeftMenu className="col-md-4 menu-space-layout" />
-          <Player className="col-md-8 video-space-layout" />
+        <div className="row">
+          <div className="col-md-4">
+            <LeftMenu className="menu-space-layout" />
+          </div>
+          <div className="col-md-8">
+            <Player className="video-space-layout" />
+          </div>
         </div>
       </div>
     );

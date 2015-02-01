@@ -1,12 +1,7 @@
-
-.video-space-layout {
-    font-size: 0;
-}
-
 .video-player-layout {
     display: inline-block;
-    margin:0;
-    padding:0;
+    margin: 0;
+    padding: 0;
 }
 
 .menu-space-layout {
