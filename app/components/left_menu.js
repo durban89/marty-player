@@ -31,7 +31,6 @@ var LeftMenu = React.createClass({
   mixins: [LeftMenuState],
 
   handleMenuClick: function(videoName) {
-    console.log("Clicked video : " + videoName);
     VideoActionCreators.setVideoName(videoName);
   },
 

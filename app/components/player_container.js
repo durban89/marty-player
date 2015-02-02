@@ -5,8 +5,10 @@ var React = require('react');
 
 var Marty = require('marty');
 var VideoStore = require('stores/video_store');
+var VideoUtils = require('utils/video_utils');
+var NavigationButtons = require('./navigation_buttons');
 
-var PlayerState = Marty.createStateMixin({
+var PlayerContainerState = Marty.createStateMixin({
   listenTo: [VideoStore],
   getState: function () {
     return {
@@ -16,8 +18,8 @@ var PlayerState = Marty.createStateMixin({
   }
 });
 
-var Player = React.createClass({
-  mixins: [PlayerState],
+var PlayerContainer = React.createClass({
+  mixins: [PlayerContainerState],
 
   componentDidUpdate: function() {
     // If video tag is rendered, then we load the new video
@@ -28,8 +30,14 @@ var Player = React.createClass({
     }
   },
 
+  handleNavigationButtonClick: function(videoName) {
+    console.log("Navigated to video : " + videoName);
+  },
+
   render: function() {
     var playerState = this.state;
+    var callback = this.handleNavigationButtonClick;
+
     return playerState.videoArray.when({
       pending: function() {
         return <div>
@@ -44,7 +52,11 @@ var Player = React.createClass({
       },
 
       done: function(videoArray) {
+        var videoList = VideoUtils.createListFromArray(videoArray);
         var videoFilename = playerState.videoName;
+        var previousVideoName = videoList.getPrevious(videoFilename);
+        var nextVideoName = videoList.getNext(videoFilename);
+
         return <div>
             <div>
               <video ref="video_tag" className="video-player-layout"
@@ -55,17 +67,14 @@ var Player = React.createClass({
               </video>
             </div>
 
-            <br/>
-
-            <p>
-              <button className="btn btn-primary btn-large">Previous</button>
-              <button className="btn btn-primary btn-large">Shuffle</button>
-              <button className="btn btn-primary btn-large">Next</button>
-            </p>
+            <div className="small-top-margin">
+              <NavigationButtons previousVideoName={previousVideoName}
+                nextVideoName={nextVideoName} />
+            </div>
         </div>;
       }
     });
   }
 });
 
-module.exports = Player;
+module.exports = PlayerContainer;
