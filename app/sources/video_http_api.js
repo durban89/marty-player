@@ -10,7 +10,7 @@ var VideoHttpApi = Marty.createStateSource({
 
   retrieveVideoArray: function() {
     // Return get promise
-    return this.get('/films').then(function(response) {
+    return this.get('/videos').then(function(response) {
       // Modify state when promise is fullfilled
       var videoArray = response.body;
       VideoActionCreators.setVideoArray(videoArray);

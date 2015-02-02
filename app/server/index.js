@@ -18,6 +18,6 @@ app.use(express.static(path.join(__dirname, '..', '..', 'dist')));
 app.use('/styles', express.static(path.join(__dirname, '..', 'styles')));
 
 app.get('/', require('./routes/index'));
-app.get('/films', require('./routes/films'));
+app.get('/videos', require('./routes/videos'));
 
 module.exports = app;
