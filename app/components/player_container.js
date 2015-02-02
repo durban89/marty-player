@@ -40,11 +40,12 @@ var PlayerContainer = React.createClass({
 
       done: function(videoArray) {
         var videoList = VideoUtils.createListFromArray(videoArray);
-        var currentVideoName = playerState.videoName;
-        var previousVideoName = videoList.getPrevious(currentVideoName);
-        var nextVideoName = videoList.getNext(currentVideoName);
+        if (!videoList.isEmpty()) {
+          var currentVideoName = playerState.videoName;
+          var previousVideoName = videoList.getPrevious(currentVideoName);
+          var nextVideoName = videoList.getNext(currentVideoName);
 
-        return <div>
+          return <div>
             <Player videoFilename={currentVideoName} />
 
             <div className="small-top-margin">
@@ -52,7 +53,12 @@ var PlayerContainer = React.createClass({
                 previousVideoName={previousVideoName}
                 nextVideoName={nextVideoName} />
             </div>
-        </div>;
+          </div>;
+        } else {
+          return <div className="alert alert-warning" role="alert">
+            There are no videos to play.
+          </div>;
+        }
       }
     });
   }

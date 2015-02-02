@@ -62,7 +62,6 @@ var LeftMenu = React.createClass({
         });
 
         return <div>
-          <span>Video list</span>
           <ul>{videoNodeList}</ul>
         </div>;
       }

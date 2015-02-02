@@ -7,7 +7,7 @@ var VideoActionCreators = require('actions/video_action_creators');
 
 var NavigationButtons = React.createClass({
 
-  handleNavigationButtonClick: function(videoName) {
+  handleVideoChangeButtonClick: function(videoName) {
     VideoActionCreators.setVideoName(videoName);
   },
 
@@ -28,7 +28,7 @@ var NavigationButtons = React.createClass({
   },
 
   render: function() {
-    var callback = this.handleNavigationButtonClick;
+    var callback = this.handleVideoChangeButtonClick;
 
     var buttonArray = [];
     buttonArray.push(
