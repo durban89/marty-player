@@ -5,7 +5,7 @@ var Marty = require('marty');
 
 var VideoConstants = Marty.createConstants([
   'SET_VIDEO_NAME',
-  'SET_VIDEO_LIST'
+  'SET_VIDEO_ARRAY'
 ]);
 
 module.exports = VideoConstants;

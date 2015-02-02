@@ -10,7 +10,7 @@ var VideoStore = Marty.createStore({
   displayName: 'video_store',
   handlers: {
     setVideoName: VideoConstants.SET_VIDEO_NAME,
-    setVideoArray: VideoConstants.SET_VIDEO_LIST
+    setVideoArray: VideoConstants.SET_VIDEO_ARRAY
   },
 
   getInitialState: function() {

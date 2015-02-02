@@ -8,7 +8,6 @@ var VideoActionCreators = require('actions/video_action_creators');
 var NavigationButtons = React.createClass({
 
   handleNavigationButtonClick: function(videoName) {
-    console.log("Clicked to change to video : " + videoName);
     VideoActionCreators.setVideoName(videoName);
   },
 
