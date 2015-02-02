@@ -3,6 +3,11 @@
  */
 
 module.exports = function (req, res) {
-  var message = [ "videos/FranceUkraine.mp4", "videos/FranceItalie.mp4" ];
-  res.json(message).status(201).end();
+  var absolutePathToVideos = path.join(__dirname, '..', '..', "..", 'dist', "videos");
+  glob(absolutePathToVideos + "/*.mp4", function (error, fileArray) {
+    var message = fileArray.map(function(absolutePath) {
+      return absolutePath.replace(/^.*dist\/videos/, 'videos');
+    });
+    res.json(message).status(201).end();
+  })
 };

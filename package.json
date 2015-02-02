@@ -43,6 +43,8 @@
     "sinon": "^1.10.3",
     "sinon-chai": "^2.5.0",
     "envify": "^3.2.0",
-    "doubly-linked-list-js": "~0.1.6"
+
+    "doubly-linked-list-js": "~0.1.6",
+    "glob": "~4.3.5"
   }
 }
