@@ -5,22 +5,22 @@ var React = require('react');
 
 var Marty = require('marty');
 var VideoStore = require('stores/video_store');
+var VideoUtils = require('utils/video_utils');
+var VideoActionCreators = require('actions/video_action_creators');
 
 var LeftMenuState = Marty.createStateMixin({
   listenTo: [VideoStore],
   getState: function () {
     return {
-      videoList: VideoStore.getVideoList()
+      videoArray: VideoStore.getVideoArray()
     };
   }
 });
 
 var VideoItem = React.createClass({
   render: function() {
-    // Wrong, use of action "setVideo" needed
-    // onClick={this.props.menu.handleMenuClick.bind(null, this.props.videoName)}
     return <li>
-      <a href="#" onClick={this.props.onMenuClick.bind(null, this.props.index)}>
+      <a href="#" onClick={this.props.onMenuClick.bind(null, this.props.videoName)}>
         {this.props.videoName}
       </a>
     </li>;
@@ -31,13 +31,13 @@ var LeftMenu = React.createClass({
   mixins: [LeftMenuState],
 
   handleMenuClick: function(videoName) {
-    // Create video change action
-    console.log("Clicked on : " + videoName);
+    console.log("Clicked video : " + videoName);
+    VideoActionCreators.setVideoName(videoName);
   },
 
   render: function() {
     var callback = this.handleMenuClick;
-    var contentTag = this.state.videoList.when({
+    var contentTag = this.state.videoArray.when({
       pending: function() {
         return <div>
           <span>Video list is loading...</span>
@@ -50,15 +50,16 @@ var LeftMenu = React.createClass({
         </div>;
       },
 
-      done: function(videoList) {
-        var index = 0;
-        var videoNodeList = videoList.map(function(videoName) {
-          var tag = <VideoItem key={index}
-            index={index}
+      done: function(videoArray) {
+        var videoList = VideoUtils.createListFromArray(videoArray);
+
+        // Create a node for each video
+        var videoNodeList = [];
+        videoList.forEach(function(videoName) {
+          videoNodeList.push(<VideoItem
+            key={videoName}
             onMenuClick={callback}
-            videoName={videoName} />;
-          index++;
-          return tag;
+            videoName={videoName} />);
         });
 
         return <div>

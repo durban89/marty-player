@@ -5,8 +5,8 @@ var Marty = require('marty');
 var VideoConstants = require('constants/video_constants');
 
 var VideoActionCreators = Marty.createActionCreators({
-  setVideoList: VideoConstants.SET_VIDEO_LIST(),
-  setVideoIndex: VideoConstants.SET_VIDEO_INDEX()
+  setVideoArray: VideoConstants.SET_VIDEO_LIST(),
+  setVideoName: VideoConstants.SET_VIDEO_NAME()
 });
 
 module.exports = VideoActionCreators;

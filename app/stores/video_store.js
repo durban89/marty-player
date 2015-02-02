@@ -9,40 +9,43 @@ var VideoHttpApi = require('sources/video_http_api');
 var VideoStore = Marty.createStore({
   displayName: 'video_store',
   handlers: {
-    setVideoIndex: VideoConstants.SET_VIDEO_INDEX,
-    setVideoList: VideoConstants.SET_VIDEO_LIST
+    setVideoName: VideoConstants.SET_VIDEO_NAME,
+    setVideoArray: VideoConstants.SET_VIDEO_LIST
   },
 
   getInitialState: function() {
     return {
-      currentVideoIndex: 0
-    };
+      initialIndex: 0
+    }
   },
 
-  setVideoIndex: function(videoIndex) {
-    this.state.currentVideoIndex = videoIndex;
+  setVideoName: function(videoName) {
+    this.state.currentVideoName = videoName;
+    this.hasChanged();
   },
 
-  setVideoList: function(videoList) {
-    this.state.videoList = videoList;
+  setVideoArray: function(videoArray) {
+    this.state.videoArray = videoArray;
+    this.state.currentVideoName = videoArray[this.state.initialIndex];
+    this.hasChanged();
   },
 
-  getVideoList: function() {
+  getVideoArray: function() {
     return this.fetch({
       id: 'video_list',
       locally: function() {
-        return this.state.videoList;
+        return this.state.videoArray;
       },
       remotely: function() {
         // If remotely returns a fullfilled promise,
         // then locally is called
-        return VideoHttpApi.retrieveVideoList();
+        return VideoHttpApi.retrieveVideoArray();
       }
     });
   },
 
-  getCurrentVideoIndex: function() {
-    return this.state.currentVideoIndex;
+  getCurrentVideoName: function() {
+    return this.state.currentVideoName;
   }
 });
 

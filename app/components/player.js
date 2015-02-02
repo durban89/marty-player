@@ -10,8 +10,8 @@ var PlayerState = Marty.createStateMixin({
   listenTo: [VideoStore],
   getState: function () {
     return {
-      videoList: VideoStore.getVideoList(),
-      videoIndex: VideoStore.getCurrentVideoIndex()
+      videoArray: VideoStore.getVideoArray(),
+      videoName: VideoStore.getCurrentVideoName()
     };
   }
 });
@@ -21,15 +21,16 @@ var Player = React.createClass({
 
   componentDidUpdate: function() {
     // If video tag is rendered, then we load the new video
-    //var videoTag = this.refs.video_tag.getDOMNode();
-    //if (videoTag) {
-    //  videoTag.load();
-    //}
+    var videoTagRef = this.refs.video_tag;
+    if (videoTagRef) {
+      var videoTag = videoTagRef.getDOMNode();
+      videoTag.load();
+    }
   },
 
   render: function() {
     var playerState = this.state;
-    return playerState.videoList.when({
+    return playerState.videoArray.when({
       pending: function() {
         return <div>
           <span>Video is loading.</span>
@@ -42,13 +43,13 @@ var Player = React.createClass({
         </div>
       },
 
-      done: function(videoList) {
-        var videoFilename = videoList[playerState.videoIndex];
+      done: function(videoArray) {
+        var videoFilename = playerState.videoName;
         return <div>
             <div>
               <video ref="video_tag" className="video-player-layout"
                 width="800" height="600"
-                controls>
+                controls autoPlay>
                 <source src={videoFilename} type="video/mp4"></source>
                 <span>Your browser does not support the video tag.</span>
               </video>
