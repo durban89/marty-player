@@ -56,7 +56,7 @@ var PlayerContainer = React.createClass({
           </div>;
         } else {
           return <div className="alert alert-warning" role="alert">
-            There are no videos to play.
+            There are no videos to play. Put MP4 videos in <strong>/videos</strong>.
           </div>;
         }
       }
