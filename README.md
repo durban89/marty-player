@@ -1,8 +1,16 @@
-#marty_player
+marty_player
+=====================
 
-##Quick start
+# Quick start
 
-``
-npm install # Install all dependencies
-npm start   # Run the app
-``
+```
+# Install all dependencies
+npm install
+
+# Start application
+npm start
+
+# Put MP4 videos in dist/videos
+# Open http://127.0.0.1:5000 in your web browser
+```
+
