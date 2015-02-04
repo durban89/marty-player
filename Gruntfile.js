@@ -34,7 +34,7 @@ module.exports = function (grunt) {
       watch: browserifyOptions({
         watch: true,
         debug: true
-      }),
+      })
     },
     exorcise: {
       bundle: {
