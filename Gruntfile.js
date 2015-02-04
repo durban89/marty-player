@@ -5,8 +5,8 @@ module.exports = function (grunt) {
   var OUTPUT_PATH = './dist/javascripts/marty-player.js';
 
   grunt.registerTask('test', 'karma');
-  grunt.registerTask('default', 'concurrent:serve');
-  grunt.registerTask('release', ['browserify:release', 'exorcise', 'uglify:release']);
+  grunt.registerTask('default', ['mkdir', 'concurrent:serve']);
+  grunt.registerTask('release', ['mkdir', 'browserify:release', 'exorcise', 'uglify:release']);
 
   grunt.initConfig({
     nodemon: {
@@ -52,6 +52,13 @@ module.exports = function (grunt) {
         },
         files: {
           'dist/javascripts/marty-player.min.js': ['dist/javascripts/marty-player.js']
+        }
+      }
+    },
+    mkdir: {
+      all: {
+        options: {
+          create: ['./dist/videos']
         }
       }
     }

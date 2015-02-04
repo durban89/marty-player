@@ -45,6 +45,7 @@
     "envify": "^3.2.0",
 
     "doubly-linked-list-js": "~0.1.6",
-    "glob": "~4.3.5"
+    "glob": "~4.3.5",
+    "grunt-mkdir": "~0.1.0"
   }
 }
