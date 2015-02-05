@@ -1,6 +1,8 @@
 marty_player
 =====================
 
+Remote MP4 player using Node and Marty.
+
 # Quick start
 
 ```
