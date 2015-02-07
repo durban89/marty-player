@@ -3,19 +3,7 @@
  */
 var React = require('react');
 
-var Marty = require('marty');
-var VideoStore = require('stores/video_store');
-var VideoUtils = require('utils/video_utils');
 var VideoActionCreators = require('actions/video_action_creators');
-
-var LeftMenuState = Marty.createStateMixin({
-  listenTo: [VideoStore],
-  getState: function () {
-    return {
-      videoArray: VideoStore.getVideoArray()
-    };
-  }
-});
 
 var VideoItem = React.createClass({
   render: function() {
@@ -28,47 +16,23 @@ var VideoItem = React.createClass({
 });
 
 var LeftMenu = React.createClass({
-  mixins: [LeftMenuState],
-
   handleMenuClick: function(videoName) {
     VideoActionCreators.setVideoName(videoName);
   },
 
   render: function() {
     var callback = this.handleMenuClick;
-    var contentTag = this.state.videoArray.when({
-      pending: function() {
-        return <div>
-          <span>Video list is loading...</span>
-        </div>;
-      },
-
-      failed: function(error) {
-        return <div>
-          <span>List failed to load: {error.message}</span>
-        </div>;
-      },
-
-      done: function(videoArray) {
-        var videoList = VideoUtils.createListFromArray(videoArray);
-
-        // Create a node for each video
-        var videoNodeList = [];
-        videoList.forEach(function(videoName) {
-          videoNodeList.push(<VideoItem
-            key={videoName}
-            onMenuClick={callback}
-            videoName={videoName} />);
-        });
-
-        return <div>
-          <ul>{videoNodeList}</ul>
-        </div>;
-      }
+    // Create a node for each video
+    var videoNodeList = [];
+    this.props.videoList.forEach(function(videoName) {
+      videoNodeList.push(<VideoItem
+        key={videoName}
+        onMenuClick={callback}
+        videoName={videoName} />);
     });
 
     return <div className="left-menu-layout">
-      {contentTag}
+      <ul>{videoNodeList}</ul>
     </div>;
   }
 });
